@@ -54,7 +54,7 @@ class ObjectDetectorPainter extends CustomPainter {
         ),
         borderPaint..color = color.withOpacity(opacity),
       );
-print("LTRB: $left, $right, $width, $height");
+      print("LTRBWH: $left, $top, $right, $bottom, $width, $height");
       // Label
       final builder = ui.ParagraphBuilder(
         ui.ParagraphStyle(
