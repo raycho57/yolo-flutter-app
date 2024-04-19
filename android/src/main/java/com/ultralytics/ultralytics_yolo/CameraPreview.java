@@ -73,6 +73,14 @@ public class CameraPreview {
 
                 //clear stream for next image
                 imageProxy.close();
+
+                // add sleep for 5 FPS by jksong
+                try {
+                    Thread.sleep(150);
+                }catch(Exception e)
+                {
+                    System.out.println(e);
+                }
             });
 
             // Unbind use cases before rebinding
