@@ -74,9 +74,9 @@ public class CameraPreview {
                 //clear stream for next image
                 imageProxy.close();
 
-                // add sleep for 5 FPS by jksong
+                // add sleep for 5 FPS by jksong , 150 msec
                 try {
-                    Thread.sleep(150);
+                    Thread.sleep(50); // 1.x FPS
                 }catch(Exception e)
                 {
                     System.out.println(e);
