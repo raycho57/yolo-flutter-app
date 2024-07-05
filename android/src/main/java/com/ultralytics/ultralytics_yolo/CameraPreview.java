@@ -63,20 +63,31 @@ public class CameraPreview {
                     .requireLensFacing(facing)
                     .build();
 
+            // jksong 0705. Operation Toggle Lens to Select Camera Lenz
+            if(facing == CameraSelector.LENS_FACING_FRONT) {
+                List<CameraInfo> availableCameraInfos = cameraProvider.getAvailableCameraInfos();
+                cameraSelector = availableCameraInfos
+                        .get(2)
+                        .getCameraSelector();
+            }
+            
             ImageAnalysis imageAnalysis =
                     new ImageAnalysis.Builder()
                             .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
                             .setTargetAspectRatio(AspectRatio.RATIO_4_3)
                             .build();
             imageAnalysis.setAnalyzer(Runnable::run, imageProxy -> {
-                predictor.predict(imageProxy, facing == CameraSelector.LENS_FACING_FRONT);
+                // jksong 0705. Operation Toggle Lens to Select Camera Lens, 
+                // No need to consider mirroring
+                // predictor.predict(imageProxy, facing == CameraSelector.LENS_FACING_FRONT);
+                predictor.predict(imageProxy, false);                
 
                 //clear stream for next image
                 imageProxy.close();
 
-                // add sleep for 5 FPS by jksong , 150 msec
+                // add sleep for 8.x FPS by jksong , 100 msec
                 try {
-                    Thread.sleep(50); // 1.x FPS
+                    Thread.sleep(100); // 1.x FPS
                 }catch(Exception e)
                 {
                     System.out.println(e);
