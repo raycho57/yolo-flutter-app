@@ -7,6 +7,7 @@ import android.util.Size;
 import androidx.camera.core.AspectRatio;
 import androidx.camera.core.Camera;
 import androidx.camera.core.CameraControl;
+import androidx.camera.core.CameraInfo;
 import androidx.camera.core.CameraSelector;
 import androidx.camera.core.ImageAnalysis;
 import androidx.camera.core.Preview;
@@ -18,6 +19,7 @@ import androidx.lifecycle.LifecycleOwner;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.ultralytics.ultralytics_yolo.predict.Predictor;
 
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 
