@@ -205,6 +205,17 @@ public class MethodCallHandler implements MethodChannel.MethodCallHandler {
 
                     objects.add(objectMap);
                 }
+                // 0718: add default(null) object to refresh UI when no object is detected.
+                Map<String, Object> objectMap = new HashMap<>();
+                objectMap.put("x", 0.0);
+                objectMap.put("y", 0.0);
+                objectMap.put("width", 0.0);
+                objectMap.put("height", 0.0);
+                objectMap.put("confidence", 0.0);
+                objectMap.put("index", 98);
+                objectMap.put("label", "");
+                objects.add(objectMap);
+
 
                 resultStreamHandler.sink(objects);
             });
