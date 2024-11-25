@@ -89,7 +89,8 @@ public class CameraPreview {
 
                 // add sleep for 8.x FPS by jksong , 100 msec
                 try {
-                    Thread.sleep(100); // 1.x FPS
+                    //Thread.sleep(100); // 1.x FPS
+                    Thread.sleep(75); // 10.x FPS
                 }catch(Exception e)
                 {
                     System.out.println(e);
