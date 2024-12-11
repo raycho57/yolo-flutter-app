@@ -43,13 +43,13 @@ class UltralyticsYoloCameraController
 
   /// Toggles the direction of the camera lens
   Future<void> toggleLensDirection() async {
-    final newLensDirection = value.lensDirection == 0 ? 1 : 0;
+    final newLensDirection = value.lensDirection == 0 || value.lensDirection == 2 ? 1 : 0;
     value = value.copyWith(lensDirection: newLensDirection);
     await _ultralyticsYoloPlatform.setLensDirection(newLensDirection);
   }
   /// Toggles the direction of the camera lens
   Future<void> toggleLensNormalWide() async {
-    final newLensDirection = value.lensDirection == 0 ? 2 : 0;
+    final newLensDirection = value.lensDirection == 0 || value.lensDirection == 1 ? 2 : 0;
     value = value.copyWith(lensDirection: newLensDirection);
     await _ultralyticsYoloPlatform.setLensDirection(newLensDirection);
   }
