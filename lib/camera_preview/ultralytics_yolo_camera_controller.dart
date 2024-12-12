@@ -48,7 +48,7 @@ class UltralyticsYoloCameraController
     await _ultralyticsYoloPlatform.setLensDirection(newLensDirection);
   }
   
-  /// Toggles the direction of the camera lens
+  /// Toggles the normal/wide of the camera lens
   Future<void> toggleLensNormalWide() async {
     final newLensDirection = value.lensDirection == 0 || value.lensDirection == 1 ? 2 : 0;
     value = value.copyWith(lensDirection: newLensDirection);
