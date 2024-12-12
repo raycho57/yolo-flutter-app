@@ -61,10 +61,6 @@ public class CameraPreview {
                     .setTargetAspectRatio(AspectRatio.RATIO_4_3)
                     .build();
 
-            CameraSelector cameraSelector = new CameraSelector.Builder()
-                    .requireLensFacing(facing)
-                    .build();
-
             CameraSelector cameraSelector;
             if (facing == CameraSelector.LENS_FACING_BACK || facing == CameraSelector.LENS_FACING_FRONT) {
                 cameraSelector = new CameraSelector.Builder()
