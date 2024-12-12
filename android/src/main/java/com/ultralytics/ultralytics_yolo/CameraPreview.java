@@ -62,7 +62,7 @@ public class CameraPreview {
                     .build();
 
             CameraSelector cameraSelector;
-            if (facing == CameraSelector.LENS_FACING_BACK || facing == CameraSelector.LENS_FACING_FRONT) {
+            if (facing == 0 || facing == 1) {
                 cameraSelector = new CameraSelector.Builder()
                         .requireLensFacing(facing)
                         .build();
@@ -79,7 +79,7 @@ public class CameraPreview {
             imageAnalysis.setAnalyzer(Runnable::run, imageProxy -> {
                 // jksong 0705. Operation Toggle Lens to Select Camera Lens, 
                 // No need to consider mirroring
-                predictor.predict(imageProxy, facing == CameraSelector.LENS_FACING_FRONT);
+                predictor.predict(imageProxy, facing == 1);
                 // predictor.predict(imageProxy, false);
 
                 //clear stream for next image
