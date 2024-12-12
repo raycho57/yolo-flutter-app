@@ -65,13 +65,15 @@ public class CameraPreview {
                     .requireLensFacing(facing)
                     .build();
 
-//            // jksong 0705. Operation Toggle Lens to Select Camera Lenz
-//            if(facing == CameraSelector.LENS_FACING_FRONT) {
-//                List<CameraInfo> availableCameraInfos = cameraProvider.getAvailableCameraInfos();
-//                cameraSelector = availableCameraInfos
-//                        .get(2)
-//                        .getCameraSelector();
-//            }
+            CameraSelector cameraSelector;
+            if (facing == CameraSelector.LENS_FACING_BACK || facing == CameraSelector.LENS_FACING_FRONT) {
+                cameraSelector = new CameraSelector.Builder()
+                        .requireLensFacing(facing)
+                        .build();
+            } else if (facing == 2) {
+                List<CameraInfo> availableCameraInfos = cameraProvider.getAvailableCameraInfos();
+                cameraSelector = availableCameraInfos.get(2).getCameraSelector();
+            }
             
             ImageAnalysis imageAnalysis =
                     new ImageAnalysis.Builder()
