@@ -61,16 +61,17 @@ public class CameraPreview {
                     .setTargetAspectRatio(AspectRatio.RATIO_4_3)
                     .build();
 
+            // jksong 0705. Operation Toggle Lens to Select Camera Lenz
             CameraSelector cameraSelector = null;
-            if (facing == 0 || facing == 1) {
-                cameraSelector = new CameraSelector.Builder()
-                        .requireLensFacing(facing)
-                        .build();
-            } else if (facing == 2) {
+            cameraSelector = new CameraSelector.Builder()
+                    .requireLensFacing(facing == CameraSelector.LENS_FACING_FRONT?facing:CameraSelector.LENS_FACING_BACK)
+                    .build();
+
+            if (facing == 2) {
                 List<CameraInfo> availableCameraInfos = cameraProvider.getAvailableCameraInfos();
                 cameraSelector = availableCameraInfos.get(2).getCameraSelector();
             }
-            
+
             ImageAnalysis imageAnalysis =
                     new ImageAnalysis.Builder()
                             .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
@@ -79,7 +80,7 @@ public class CameraPreview {
             imageAnalysis.setAnalyzer(Runnable::run, imageProxy -> {
                 // jksong 0705. Operation Toggle Lens to Select Camera Lens, 
                 // No need to consider mirroring
-                predictor.predict(imageProxy, facing == 1);
+                predictor.predict(imageProxy, facing == CameraSelector.LENS_FACING_FRONT);
                 // predictor.predict(imageProxy, false);
 
                 //clear stream for next image
@@ -113,9 +114,7 @@ public class CameraPreview {
         this.predictor = predictor;
     }
 
-    public void setCameraFacing(int facing) {
-        bindPreview(facing);
-    }
+    public void setCameraFacing(int facing) { bindPreview(facing); }
 
     public void setScaleFactor(double factor) {
         cameraControl.setZoomRatio((float)factor);
