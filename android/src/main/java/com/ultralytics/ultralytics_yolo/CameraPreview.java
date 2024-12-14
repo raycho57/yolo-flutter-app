@@ -62,7 +62,7 @@ public class CameraPreview {
                     .build();
 
              CameraSelector cameraSelector = null;
-            if (facing == 2) { // Assume 2 is wide lens
+            if (facing == 1) { // Assume 2 is wide lens
                 List<CameraInfo> availableCameraInfos = cameraProvider.getAvailableCameraInfos();
                 cameraSelector = availableCameraInfos.get(2).getCameraSelector();
                 if (cameraSelector == null) {
@@ -96,8 +96,8 @@ public class CameraPreview {
             imageAnalysis.setAnalyzer(Runnable::run, imageProxy -> {
                 // jksong 0705. Operation Toggle Lens to Select Camera Lens, 
                 // No need to consider mirroring
-                // predictor.predict(imageProxy, facing == CameraSelector.LENS_FACING_FRONT);
-                predictor.predict(imageProxy, false);
+                predictor.predict(imageProxy, facing == CameraSelector.LENS_FACING_FRONT);
+                // predictor.predict(imageProxy, false);
 
                 //clear stream for next image
                 imageProxy.close();
