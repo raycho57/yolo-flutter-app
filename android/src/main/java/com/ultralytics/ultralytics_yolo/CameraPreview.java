@@ -53,32 +53,6 @@ public class CameraPreview {
         }, ContextCompat.getMainExecutor(context));
     }
 
-    private CameraSelector getWideCameraSelector() {
-        CameraSelector wideCameraSelector = null;
-    
-        List<CameraInfo> cameraInfos = cameraProvider.getAvailableCameraInfos();
-        for (CameraInfo cameraInfo : cameraInfos) {
-            // Use Camera2Interop to retrieve CameraCharacteristics
-            Camera2Interop.Extender<CameraSelector.Builder> camera2Extender =
-                    new Camera2Interop.Extender<>(new CameraSelector.Builder());
-            CameraCharacteristics characteristics = camera2Extender.getCameraCharacteristics(cameraInfo);
-    
-            // Check if this camera is wide-angle
-            Float[] focalLengths = characteristics.get(CameraCharacteristics.LENS_INFO_AVAILABLE_FOCAL_LENGTHS);
-            if (focalLengths != null && focalLengths.length > 0) {
-                float focalLength = focalLengths[0]; // Get the primary focal length
-                if (focalLength < 2.0f) { // Assume wide angle if focal length is < 2.0mm
-                    wideCameraSelector = new CameraSelector.Builder()
-                            .requireLensFacing(CameraSelector.LENS_FACING_BACK)
-                            .build();
-                    break;
-                }
-            }
-        }
-    
-        return wideCameraSelector;
-    }
-    
     private void bindPreview(int facing) {
         if (!busy) {
             busy = true;
@@ -89,7 +63,8 @@ public class CameraPreview {
 
              CameraSelector cameraSelector = null;
             if (facing == 2) { // Assume 2 is wide lens
-                cameraSelector = getWideCameraSelector();
+                List<CameraInfo> availableCameraInfos = cameraProvider.getAvailableCameraInfos();
+                cameraSelector = availableCameraInfos.get(2).getCameraSelector();
                 if (cameraSelector == null) {
                     // Fallback to back camera if wide lens is unavailable
                     cameraSelector = new CameraSelector.Builder()
