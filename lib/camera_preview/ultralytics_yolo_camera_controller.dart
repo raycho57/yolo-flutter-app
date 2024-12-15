@@ -48,6 +48,13 @@ class UltralyticsYoloCameraController
     await _ultralyticsYoloPlatform.setLensDirection(newLensDirection);
   }
 
+  /// Set front camera lens
+  Future<void> setFrontLens() async {
+    final newLensDirection = 2;
+    value = value.copyWith(lensDirection: newLensDirection);
+    await _ultralyticsYoloPlatform.setLensDirection(newLensDirection);
+  }
+
   /// Toggles the wide/normal view of the camera lens
   Future<void> toggleLensWideNormal() async {
     final newLensDirection = value.lensDirection == 0 ? 1 : 0;
