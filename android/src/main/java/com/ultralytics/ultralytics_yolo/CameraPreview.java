@@ -62,7 +62,7 @@ public class CameraPreview {
                     .build();
 
              CameraSelector cameraSelector = null;
-            if (facing == 2) { // Assume 2 is wide lens
+            if (facing == CameraSelector.LENS_FACING_FRONT) { // Assume 2 is wide lens
                 List<CameraInfo> availableCameraInfos = cameraProvider.getAvailableCameraInfos();
                 cameraSelector = availableCameraInfos.get(2).getCameraSelector();
                 if (cameraSelector == null) {
@@ -73,7 +73,7 @@ public class CameraPreview {
                 }
             } else {
                 cameraSelector = new CameraSelector.Builder()
-                        .requireLensFacing(facing)
+                        .requireLensFacing(facing == 2? CameraSelector.LENS_FACING_FRONT: facing)
                         .build();
             }
             // jksong 0705. Operation Toggle Lens to Select Camera Lenz
