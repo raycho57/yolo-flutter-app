@@ -43,14 +43,16 @@ class UltralyticsYoloCameraController
 
   /// Toggles the direction of the camera lens
   Future<void> toggleLensDirection() async {
-    final newLensDirection = value.lensDirection == 0 ? 1 : 0;
+    final newLensDirection = value.lensDirection == 0 ? 2 : 0;
     value = value.copyWith(lensDirection: newLensDirection);
     await _ultralyticsYoloPlatform.setLensDirection(newLensDirection);
   }
 
-  /// configureLensMode camera lens
-  Future<void> configureLensMode(int mode) async {
-    await _ultralyticsYoloPlatform.setLensDirection(mode);
+  /// Toggles the wide/normal view of the camera lens
+  Future<void> toggleLensWideNormal() async {
+    final newLensDirection = value.lensDirection == 0 ? 1 : 0;
+    value = value.copyWith(lensDirection: newLensDirection);
+    await _ultralyticsYoloPlatform.setLensDirection(newLensDirection);
   }
   
   /// Sets the width of the stroke used to draw the bounding boxes
